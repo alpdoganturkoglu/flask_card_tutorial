@@ -10,7 +10,7 @@ class Cards(db.Model):
     updated_time = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
     auth_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    def __init__(self, topic, question, auth):
+    def __init__(self, topic, question,author):
         self.topic = topic
         self.question = question
-        self.auth = auth
+        self.author = author

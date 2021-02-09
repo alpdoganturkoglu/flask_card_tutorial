@@ -14,6 +14,7 @@ class RegisterForm(FlaskForm):
         is_exist = User.query.filter_by(email=email)
         if is_exist:
             return ValidationError('Email already in use.')
+        return True
 
 
 class LoginForm(FlaskForm):

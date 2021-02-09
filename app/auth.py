@@ -16,7 +16,7 @@ def register():
     if request.method == 'POST':
 
         print(form.email.data, form.password.data, form.password2.data)
-        if form.validate_on_submit():
+        if form.validate_on_submit() and form.validate_email(form.email.data):
             hashed_password = generate_password_hash(form.password.data)
             new_user = User(email=form.email.data, password= hashed_password)
             print(new_user.password)
@@ -24,7 +24,7 @@ def register():
             db.session.commit()
             return redirect(url_for('user.login'))
         else:
-            print('error')
+            flash('Invalid form')
 
     return render_template('/register.html', form=form)
 
