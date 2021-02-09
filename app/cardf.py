@@ -23,11 +23,13 @@ def index():
         topic = random_card.topic
         question = random_card.question
         card_id = random_card.id
+        total_cards = len(cards)
     else:
         topic = ""
         question = ""
         card_id = 0
-    return render_template('/index.html', topic=topic, question=question, card_id=card_id)
+        total_cards = 0
+    return render_template('/index.html', topic=topic, question=question, card_id=card_id, total_cards=total_cards)
 
 
 @card_bp.route('/create_card', methods=('GET', 'POST'))
@@ -36,20 +38,15 @@ def create_card():
     user = User.query.filter_by(id=current_user.id).first()
     form = CardForm()
     if request.method == 'POST':
+        print(form.topic.data, form.question.data)
         if form.validate_on_submit():
-            topic = request.form.get('topic')
-            question = request.form.get('question')
-            error = None
 
-            if not topic or not question:
-                error = 'topic or question cannot be empty'
-            if error is not None:
-                flash(error)
-
-            new_card = Cards(topic=form.topic.data, question=form.topic.data, author=user)
+            new_card = Cards(topic=form.topic.data, question=form.question.data, author=user)
             db.session.add(new_card)
             db.session.commit()
             return redirect(url_for('cards.index'))
+        else:
+            print(form.validate_on_submit())
 
     return render_template('/create_card.html', form=form)
 
@@ -67,9 +64,12 @@ def get_post(id):
 def show_cards(card_id=None):
     user = User.query.filter_by(id=current_user.id).first()
     cards = user.cards.all()
+    card_topics ={}
+    for card in cards:
+        card_topics[card.topic]= card.id
 
     # going to return all cards info
-    return cards
+    return render_template('show_cards.html', card_topics=card_topics)
 
 @card_bp.route('/<int:card_id>/update', methods=('GET', 'POST'))
 @login_required

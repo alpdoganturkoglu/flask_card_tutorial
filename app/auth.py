@@ -1,6 +1,6 @@
 from flask import (Blueprint, flash, render_template, request, url_for, redirect)
 
-from flask_login import current_user, login_required, login_user, logout_user, login_manager
+from flask_login import login_required, login_user, logout_user, login_manager
 from app.server import db
 from app.models.user import User
 from app.forms.user_form import RegisterForm, LoginForm
@@ -15,11 +15,9 @@ def register():
     form = RegisterForm()
     if request.method == 'POST':
 
-        print(form.email.data, form.password.data, form.password2.data)
         if form.validate_on_submit() and form.validate_email(form.email.data):
             hashed_password = generate_password_hash(form.password.data)
-            new_user = User(email=form.email.data, password= hashed_password)
-            print(new_user.password)
+            new_user = User(email=form.email.data, password=hashed_password)
             db.session.add(new_user)
             db.session.commit()
             return redirect(url_for('user.login'))

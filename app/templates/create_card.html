@@ -3,17 +3,22 @@
 <div class="container login-container">
     <div class="col-3"></div>
     <div class="col">
+        <form method="POST">
+            {{ form.hidden_tag() }}
         <div class="row">
             <label for="" class="form-label">{{ form.topic.label }}</label>
             {{ form.topic(size=80) }}
         </div>
+
         <div class="row">
             <label for="" class="form-label">{{ form.question.label }}</label>
             {{ form.question(size=160) }}
         </div>
+
         <div class="row">
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
+        </form>
     </div>
     <div class="col-3"></div>
 </div>
