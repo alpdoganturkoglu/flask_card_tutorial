@@ -4,10 +4,10 @@ from wtforms.validators import ValidationError, DataRequired, Email, EqualTo
 from app.models.user import User
 
 
-class Register(FlaskForm):
+class RegisterForm(FlaskForm):
     email = StringField('email', validators=[Email(), DataRequired()])
     password = PasswordField('password', validators=[DataRequired()])
-    password_verf = PasswordField('password_verf', validators=[DataRequired(), EqualTo(password)])
+    password2 = PasswordField('Password Verify', validators=[DataRequired(), EqualTo('password')])
     submit = SubmitField('submit')
 
     def validate_email(self, email):
@@ -16,7 +16,7 @@ class Register(FlaskForm):
             return ValidationError('Email already in use.')
 
 
-class Login(FlaskForm):
+class LoginForm(FlaskForm):
     email = StringField('email', validators=[Email(), DataRequired()])
     password = PasswordField('password', validators=[DataRequired()])
     submit = SubmitField('submit')

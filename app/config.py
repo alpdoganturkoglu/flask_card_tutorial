@@ -13,7 +13,7 @@ class DevelopmentConfig(Config):
     DEVELOPMENT = True
 
     path = os.path.dirname(os.path.realpath(__file__))
-    database_path = os.path.join(path, '../mydb.sqlite')
+    database_path = os.path.join(path, '../flask_card.sqlite')
     DBPATH = database_path
 
 

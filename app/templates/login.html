@@ -1,17 +1,19 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="container">
+
+<div class="container login-container">
     <div class="col-3"></div>
     <div class="col">
         <div>
-            <form>
+            <form method="POST">
+                    {{ form.hidden_tag() }}
                 <div class="row align-items-center">
-                    <label for="email" class="form-label">E-mail</label>
-                    <input type="email" class="form-control" name="email" id="email">
+                    <label for="" class="form-label">E-mail</label>
+                    {{ form.email(size=80) }}
                 </div>
                 <div class="row">
-                    <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" name="password" id="password">
+                    <label for="" class="form-label">{{ form.password.label }}</label>
+                    {{ form.password(size=160) }}
                 </div>
                 <div class="row">
                     <button type="submit" class="btn btn-primary">Submit</button>
@@ -21,4 +23,5 @@
     </div>
     <div class="col-3"></div>
 </div>
+
 {% endblock %}

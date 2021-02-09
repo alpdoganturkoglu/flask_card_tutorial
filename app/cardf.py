@@ -2,7 +2,7 @@ from flask import (Blueprint, flash, render_template, request, url_for, abort, r
 from flask_login import login_required, current_user
 
 from datetime import datetime
-from app.database import db
+from app.server import db
 from app.models.user import User
 from app.models.card import Cards
 
@@ -15,7 +15,7 @@ def index():
 
     # gets user info
     user = User.query.filter_by(id=current_user.id)
-    return render_template('/index.html', cards=user.cards)
+    return render_template('/index.html')
 
 
 @card_bp.route('/create_card', methods=('GET', 'POST'))

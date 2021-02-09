@@ -1,51 +1,67 @@
-from flask import (Blueprint, flash, g, render_template, request, url_for, redirect)
+from flask import (Blueprint, flash, render_template, request, url_for, redirect)
 
 from flask_login import current_user, login_required, login_user, logout_user, login_manager
-from app.database import db
+from app.server import db
 from app.models.user import User
-from app.forms.user_form import Register, Login
+from app.forms.user_form import RegisterForm, LoginForm
+from app.server import login_manager
+from werkzeug.security import check_password_hash, generate_password_hash
 
 user_bp = Blueprint('user', __name__)
 
 
 @user_bp.route('/register', methods=['GET', 'POST'])
 def register():
+    form = RegisterForm()
     if request.method == 'POST':
-        form = Register()
 
-        # if form is validate
+        print(form.email.data, form.password.data, form.password2.data)
         if form.validate_on_submit():
-            new_user = User(email=form.email.data, password=form.password.data)
+            hashed_password = generate_password_hash(form.password.data)
+            new_user = User(email=form.email.data, password= hashed_password)
+            print(new_user.password)
             db.session.add(new_user)
             db.session.commit()
             return redirect(url_for('user.login'))
+        else:
+            print('error')
 
-    return render_template('/register.html')
+    return render_template('/register.html', form=form)
 
 
 @user_bp.route('/login', methods=['GET', 'POST'])
 def login():
-
+    form = LoginForm()
     if request.method == 'POST':
-        form = Login()
         if form.validate_on_submit():
-            user = User.query.filter_by(email=form.email.data)
+            user = User.query.filter_by(email=form.email.data).first()
             if user is None:
                 flash('User Not found')
-                return redirect('user.login')
+                return redirect(url_for('user.login'))
             else:
-                if user.password == form.password.data:
+                if check_password_hash(user.password, form.password.data):
                     login_user(user)
-                    return redirect(url_for('card.index'))
+                    return redirect(url_for('cards.index'))
                 else:
-                    flash('User Not found')
-                    return redirect('user.login')
+                    flash('Wrong Password')
+                    return redirect(url_for('user.login'))
 
-    return render_template('/login.html')
+    return render_template('/login.html', form=form)
+
+
+@login_manager.user_loader
+def load_user(id):
+    if id is None:
+        redirect('user.login')
+    user = User.query.filter_by(id=id).first()
+    if user:
+        return user
+    else:
+        return None
 
 
 @user_bp.route('/logout')
 @login_required
 def logout():
     logout_user()
-    return redirect('user.login')
+    return redirect(url_for('user.login'))
