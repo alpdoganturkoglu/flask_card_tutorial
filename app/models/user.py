@@ -1,7 +1,6 @@
-from app.database import db
+from app.server import db
 from datetime import datetime
 from flask_login import UserMixin
-from app.auth import login
 
 
 class User(UserMixin, db.Model):
