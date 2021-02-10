@@ -63,14 +63,19 @@ def get_post(id):
 
     return card
 
+@card_bp.route('/cards/<string:card_type>')
 @card_bp.route('/cards')
 @login_required
-def show_cards(card_id=None):
+def show_cards(card_type=None):
     user = User.query.filter_by(id=current_user.id).first()
     cards = user.cards.all()
     card_view = []
     for card in cards:
-        card_view.append([card.id, card.topic, card.question])
+        if card_type is None:
+            card_view.append([card.id, card.topic, card.question])
+        else:
+            if card.typ == card_type:
+                card_view.append([card.id, card.topic, card.question, cards.typ])
     # going to return all cards info
     return render_template('show_cards.html', cards=card_view)
 

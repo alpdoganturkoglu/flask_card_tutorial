@@ -1,23 +1,51 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container login-container">
-     <div class="row">
-    {% for card in cards%}
+    <div>
 
+        <div class="form-row" align="right">
+            <div class="col-md-4 mb-3">
+                <select id="filterSelect" class="form-control">
+                    <option value="general">General</option>
+                    <option value="code">Code</option>
+                </select>
+            </div>
+            <div class="col-md-4 mb-3">
+            <button onclick="filterFunc()"  class="btn btn-primary mb-2">Submit</button>
+        </div>
+    </div>
+
+    </div>
+    <div class="row">
+        {% for card in cards%}
         <div class="col-md-3">
             <div class="card" style="width: %30;">
-                    <div class="card-body">
-                        <h2 class="card-title">{{ card[1] }}</h2>
-                        <p class="card-text">{{ card[2] }}</p>
-                        <div class="col">
-                            <a href="/[{{ card[0] }}]/delete" class="btn btn-danger">Delete</a>
-                            <a href="/{{ card[0] }}/update" class="btn btn-primary">Edit</a>
-                        </div>
+                <div class="card-body">
+                    <h2 class="card-title">{{ card[1] }}</h2>
+                    {% if card[3] == 'code' %}
+                    <p> <code> {{ card[2] }} </code> </p>
+                    {% else %}
+                        <p class="card-text"> {{ card[2] }} </p>
+                    {% endif %}
+                    <div class="col">
+                        <a href="/[{{ card[0] }}]/delete" class="btn btn-danger">Delete</a>
+                        <a href="/{{ card[0] }}/update" class="btn btn-primary">Edit</a>
                     </div>
+                </div>
             </div>
         </div>
 
-    {% endfor %}
+        {% endfor %}
     </div>
 </div>
+<script>
+    function filterFunc()  {
+
+    var e = document.getElementById("filterSelect");
+    var strFilter = e.value;
+    link = "http://localhost:5000/cards/" +strFilter;
+    window.open(link,'_self')
+    }
+
+</script>
 {% endblock %}
