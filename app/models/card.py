@@ -8,9 +8,11 @@ class Cards(db.Model):
     question = db.Column(db.String(160), nullable=False)
     created_time = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
     updated_time = db.Column(db.DateTime, nullable=False, default=datetime.utcnow())
+    typ = db.Column(db.String(10), nullable=False)
     auth_id = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-    def __init__(self, topic, question,author):
+    def __init__(self, topic, question, author, typ):
         self.topic = topic
         self.question = question
+        self.typ = typ
         self.author = author

@@ -6,19 +6,19 @@
         <div>
             <form method="POST">
                 {{ form.hidden_tag() }}
-                <div class="row align-items-center">
+                <div class="row mt-4">
                     <label for="" class="form-label">{{ form.email.label }}</label>
                      {{ form.email(size=80) }}
                 </div>
-                <div class="row">
+                <div class="row mt-4">
                     <label for="" class="form-label">{{ form.password.label }}</label>
-                     {{ form.password(size=80) }}
+                     {{ form.password(size=160) }}
                 </div>
-                <div class="row">
+                <div class="row mt-4">
                     <label for="" class="form-label">{{ form.password2.label }}</label>
-                    {{ form.password2(size=80) }}
+                    {{ form.password2(size=160) }}
                 </div>
-                <div class="row">
+                <div class="row mt-4">
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
             </form>

@@ -14,8 +14,7 @@ user_bp = Blueprint('user', __name__)
 def register():
     form = RegisterForm()
     if request.method == 'POST':
-
-        if form.validate_on_submit() and form.validate_email(form.email.data):
+        if form.validate_on_submit():
             hashed_password = generate_password_hash(form.password.data)
             new_user = User(email=form.email.data, password=hashed_password)
             db.session.add(new_user)

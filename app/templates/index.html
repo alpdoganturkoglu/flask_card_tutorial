@@ -11,10 +11,12 @@
                 <p class="card-text">{{topic}}</p>
             </div>
         </div>
+            {% if card_id >0 %}
             <a href="{{ card_id }}/update" class="btn btn-primary page-button" role="button">Edit</a>
-    </div>
+            {% endif %}
+        </div>
     <div class="col-6">
-            <h1 align="center">0</h1>
+            <h1 align="center">{{ dif_tops }}</h1>
             <h1 align="center">DIFFERENT TOPIC(S)</h1>
         <div class="card" style="width: %40;">
             <div class="card-body">
@@ -22,8 +24,13 @@
                 <p class="card-text">{{ question }}</p>
             </div>
         </div>
+        {% if card_id >0 %}
         <a href="/cards" class="btn btn-success page-button" style="align: right;" role="button">All Cards</a>
+        {% endif %}
     </div>
    </div>
+     <div class="row mt-4">
+             <a href="/create_card" class="btn btn-success page-button" style="align: right;" role="button">New Card</a>
+     </div>
 </div>
 {% endblock %}

@@ -11,16 +11,14 @@
 
 <nav class="navbar navbar-dark bg-dark">
 
-        <a class="navbar-brand" href="#">Flask Cards</a>
+        <a class="navbar-brand" href="/">Flask Cards</a>
 
     {% if current_user.is_anonymous %}
         <ul class="navbar-nav navbar-right">
-            <li>
+            <form>
                <a type="button" href="/login" class="btn btn-outline-secondary">Login</a>
-            </li>
-            <li>
                <a type="button" href="/register" class="btn btn-outline-secondary">Register</a>
-            </li>
+            </form>
         </ul>
     {% else %}
         <ul class="nav navbar-nav navbar-right">

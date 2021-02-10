@@ -1,25 +1,32 @@
 {% extends 'base.html' %}
 {% block content %}
 <div class="container login-container">
-    <div class="col-3"></div>
+    <div class="col col-lg-2"></div>
     <div class="col">
         <form method="POST">
             {{ form.hidden_tag() }}
-        <div class="row">
+        <div class="row mt-2">
             <label for="" class="form-label">{{ form.topic.label }}</label>
-            {{ form.topic(size=80) }}
+            {{ form.topic(size=80, placeholder=topic)}}
         </div>
 
-        <div class="row">
+        <div class="row mt-2">
             <label for="" class="form-label">{{ form.question.label }}</label>
-            {{ form.question(size=160) }}
+            {{ form.question(size=160, placeholder=question, rows = "10" ) }}
         </div>
 
-        <div class="row">
+        <div class="row mt-2">
+            <label for="" class="form-label">{{ form.typ.label }}</label>
+            {{ form.typ(default = typ) }}
+        </div>
+
+
+        <div class="row mt-4">
             <button type="submit" class="btn btn-primary">Submit</button>
         </div>
+
         </form>
     </div>
-    <div class="col-3"></div>
+    <div class="col col-lg-2"></div>
 </div>
 {% endblock %}
