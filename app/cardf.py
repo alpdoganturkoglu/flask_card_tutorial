@@ -75,7 +75,8 @@ def show_cards(card_type=None):
             card_view.append([card.id, card.topic, card.question])
         else:
             if card.typ == card_type:
-                card_view.append([card.id, card.topic, card.question, cards.typ])
+                card_view.append([card.id, card.topic, card.question, card.typ])
+
     # going to return all cards info
     return render_template('show_cards.html', cards=card_view)
 

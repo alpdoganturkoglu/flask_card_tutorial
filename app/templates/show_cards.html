@@ -6,8 +6,9 @@
         <div class="form-row" align="right">
             <div class="col-md-4 mb-3">
                 <select id="filterSelect" class="form-control">
-                    <option value="general">General</option>
-                    <option value="code">Code</option>
+                    <option value="">All</option>
+                    <option value="/general">General</option>
+                    <option value="/code">Code</option>
                 </select>
             </div>
             <div class="col-md-4 mb-3">
@@ -28,7 +29,8 @@
                         <p class="card-text"> {{ card[2] }} </p>
                     {% endif %}
                     <div class="col">
-                        <a href="/[{{ card[0] }}]/delete" class="btn btn-danger">Delete</a>
+
+                        <a href="/{{ card[0] }}/delete" class="btn btn-danger">Delete</a>
                         <a href="/{{ card[0] }}/update" class="btn btn-primary">Edit</a>
                     </div>
                 </div>
@@ -43,7 +45,7 @@
 
     var e = document.getElementById("filterSelect");
     var strFilter = e.value;
-    link = "http://localhost:5000/cards/" +strFilter;
+    link = "http://localhost:5000/cards" +strFilter;
     window.open(link,'_self')
     }
 
