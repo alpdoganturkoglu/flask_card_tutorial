@@ -1,5 +1,5 @@
-from app.server import db
 from datetime import datetime
+from app.models import db
 
 
 class Cards(db.Model):

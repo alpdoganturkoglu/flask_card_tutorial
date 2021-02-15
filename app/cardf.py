@@ -2,7 +2,7 @@ from flask import (Blueprint, flash, render_template, request, url_for, abort, r
 from flask_login import login_required, current_user
 
 from datetime import datetime
-from app.server import db
+from .models import db
 from app.forms.card_form import CardForm
 import random
 from app.models.user import User
@@ -62,6 +62,7 @@ def get_post(id):
         abort(404, "Post id {0} doesn't exist.".format(id))
 
     return card
+
 
 @card_bp.route('/cards/<string:card_type>')
 @card_bp.route('/cards')

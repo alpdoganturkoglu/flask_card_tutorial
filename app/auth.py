@@ -1,13 +1,12 @@
 from flask import (Blueprint, flash, render_template, request, url_for, redirect)
-
-from flask_login import login_required, login_user, logout_user, login_manager
-from app.server import db
-from app.models.user import User
+from flask_login import login_required, login_user, logout_user, LoginManager
+from .models import db
+from .models.user import User
 from app.forms.user_form import RegisterForm, LoginForm
-from app.server import login_manager
 from werkzeug.security import check_password_hash, generate_password_hash
 
 user_bp = Blueprint('user', __name__)
+login_manager = LoginManager()
 
 
 @user_bp.route('/register', methods=['GET', 'POST'])
@@ -46,6 +45,13 @@ def login():
     return render_template('/login.html', form=form)
 
 
+@user_bp.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for('user.login'))
+
+
 @login_manager.user_loader
 def load_user(id):
     if id is None:
@@ -55,10 +61,3 @@ def load_user(id):
         return user
     else:
         return None
-
-
-@user_bp.route('/logout')
-@login_required
-def logout():
-    logout_user()
-    return redirect(url_for('user.login'))
