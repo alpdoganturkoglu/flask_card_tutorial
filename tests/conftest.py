@@ -1,12 +1,14 @@
 import pytest
 from app import create_app
 from app.models import db
+from app.models.user import User
+from app.models.card import Cards
 
 
-@pytest.fixture
+@pytest.fixture(scope='session')
 def app():
     app = create_app(test_config=True)
-    db.init_app(app)
+    db.app = app
     db.create_all()
     yield app
 
@@ -17,5 +19,3 @@ def app():
 @pytest.fixture
 def client(app):
     return app.test_client()
-
-
