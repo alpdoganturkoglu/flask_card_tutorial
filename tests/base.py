@@ -2,8 +2,8 @@ import unittest
 from app import create_app, db
 from app.models.user import User
 
-class BaseTest(unittest.TestCase):
 
+class BaseTest(unittest.TestCase):
     def_user = {'email': 'test@test.com', 'password': 'test123'}
 
     def setUp(self):
