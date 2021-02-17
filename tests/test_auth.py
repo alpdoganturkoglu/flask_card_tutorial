@@ -20,7 +20,7 @@ class AuthTest(BaseTest):
     def test_login_wrong_password(self):
         with self.client as client:
             # try to login
-            wrong_user = {'email': 'test@test.com', 'password': '1234'}
+            wrong_user = {'email': 'test@gmail.com', 'password': '1234'}
             resp = client.post('/login', data=wrong_user, follow_redirects=True)
             self.assertEqual(resp.status_code, 400)
             self.assertFalse(current_user.is_authenticated)
@@ -30,7 +30,7 @@ class AuthTest(BaseTest):
     def test_login_wrong_user(self):
         with self.client as client:
             # try to login
-            wrong_user = {'email': 'test@test.com', 'password': '1234'}
+            wrong_user = {'email': 'asda@gmail.com', 'password': '1234'}
             resp = client.post('/login', data=wrong_user, follow_redirects=True)
             self.assertEqual(resp.status_code, 400)
             self.assertFalse(current_user.is_authenticated)
@@ -42,7 +42,7 @@ class AuthTest(BaseTest):
             self.assertEqual(resp.status_code, 200)
 
             # register user
-            test_user = {'email': 'test2@test.com', 'password': 'test123', 'password2': 'test123'}
+            test_user = {'email': 'test2@gmail.com', 'password': 'Test1234', 'password2': 'Test1234'}
 
             resp = client.post('/register', data=test_user, follow_redirects=True)
             self.assertEqual(resp.status_code, 200)
@@ -59,7 +59,7 @@ class AuthTest(BaseTest):
     def test_logout(self):
         with self.client as client:
             # First sign in
-            resp = client.post('/login', data={'email': 'test@test.com', 'password': 'test123'}, follow_redirects=True)
+            resp = client.post('/login', data={'email': 'test@gmail.com', 'password': 'Test123'}, follow_redirects=True)
             self.assertEqual(resp.status_code, 200)
             self.assertTrue(current_user.is_authenticated)
 

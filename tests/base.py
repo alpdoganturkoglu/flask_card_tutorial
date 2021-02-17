@@ -4,7 +4,7 @@ from app.models.user import User
 
 
 class BaseTest(unittest.TestCase):
-    def_user = {'email': 'test@test.com', 'password': 'test123'}
+    def_user = {'email': 'test@gmail.com', 'password': 'Test123'}
 
     def setUp(self):
         self.app = create_app(test_config=True)
@@ -13,7 +13,7 @@ class BaseTest(unittest.TestCase):
         self.client = self.app.test_client(use_cookies=True)
         db.app = self.app
         db.create_all()
-        User.register(email='test@test.com', password='test123')
+        User.register(email='test@gmail.com', password='Test123')
 
     def tearDown(self) -> None:
         db.drop_all()

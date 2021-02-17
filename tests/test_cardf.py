@@ -13,7 +13,7 @@ class CardFTest(BaseTest):
             client.post('/login', data=self.def_user)
 
             resp = client.get('/create_card')
-            self.assertTrue('<label for="topic">Topic</label>' in resp.get_data(as_text=True))
+            self.assertTrue('<label for="topic" class="form-label">Topic</label>' in resp.get_data(as_text=True))
 
             test_card = {'topic': 'test', 'question': 'test', 'typ': 'general'}
             resp = client.post('/create_card', data=test_card, follow_redirects=True)
@@ -32,7 +32,7 @@ class CardFTest(BaseTest):
             client.post('/create_card', data=test_card, follow_redirects=True)
 
             resp = client.get('/1/update')
-            self.assertTrue('<label for="topic">Topic</label>' in resp.get_data(as_text=True))
+            self.assertTrue('<label for="topic" class="form-label">Topic</label>' in resp.get_data(as_text=True))
 
             test_card = {'topic': 'test', 'question': 'test', 'typ': 'code'}
             resp = client.post('/1/update', data=test_card, follow_redirects=True)
@@ -53,7 +53,7 @@ class CardFTest(BaseTest):
 
             # get page
             resp = client.get('/1/update')
-            self.assertTrue('<label for="topic">Topic</label>' in resp.get_data(as_text=True))
+            self.assertTrue('<label for="topic" class="form-label">Topic</label>' in resp.get_data(as_text=True))
 
             test_card = {'topic': 'test', 'question': '', 'typ': 'code'}
             resp = client.post('/1/update', data=test_card, follow_redirects=True)
@@ -81,7 +81,6 @@ class CardFTest(BaseTest):
             card_value = Cards.query.filter_by(id=1).first()
             self.assertEqual(resp.status_code, 200)
             self.assertEqual(card_value, None)
-            self.assertTrue('<h1 align="center">Cards</h1>' in resp.get_data(as_text=True))
 
     def test_delete_no_card(self):
         with self.client as client:
