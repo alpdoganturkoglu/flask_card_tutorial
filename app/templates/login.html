@@ -7,14 +7,13 @@
         <h1 align="center">Login</h1>
         <div>
             <form method="POST">
-                    {{ form.hidden_tag() }}
                 <div class="row mt-4">
-                    <label for="" class="form-label">{{form.email.label}}</label>
-                    {{ form.email(size=80) }}
+                    <label for="email" class="form-label">E-mail</label>
+                    <input type="text" id="email" name="email">
                 </div>
                 <div class="row mt-4">
-                    <label for="" class="form-label">{{ form.password.label }}</label>
-                    {{ form.password(size=160) }}
+                    <label for="password" class="form-label">Password</label>
+                    <input type="text" id="password" name="password">
                 </div>
                 <div class="row mt-4">
                     <button type="submit" class="btn btn-primary">Submit</button>

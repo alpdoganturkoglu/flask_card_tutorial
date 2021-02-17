@@ -1,4 +1,4 @@
-from flask import Flask, redirect
+from flask import Flask
 from .models.user import User
 from app.config import DevelopmentConfig, TestingConfig
 from flask_migrate import Migrate, MigrateCommand
